@@ -343,6 +343,9 @@ def build_app() -> Application:
 
     app = Application.builder().token(BOT_TOKEN).build()
     app.add_handler(CommandHandler("start", start))
+    async def chatid_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    await update.message.reply_text(f"Chat ID: {update.effective_chat.id}")
+app.add_handler(CommandHandler("chatid", chatid_cmd))
     app.add_handler(CallbackQueryHandler(menu_handler, pattern="^menu_"))
     app.add_handler(CallbackQueryHandler(next_buttons, pattern="^next_"))
     app.add_handler(CallbackQueryHandler(admin_actions, pattern="^admin_"))
