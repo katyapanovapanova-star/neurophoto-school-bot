@@ -18,7 +18,8 @@ from telegram.ext import (
     ContextTypes,
     filters,
 )
-
+async def chatid_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    await update.message.reply_text(f"Chat ID: {update.effective_chat.id}")
 BOT_TOKEN = os.getenv("BOT_TOKEN", "")
 ADMIN_CHAT_ID = int(os.getenv("ADMIN_CHAT_ID", "0"))
 
@@ -343,6 +344,7 @@ def build_app() -> Application:
 
     app = Application.builder().token(BOT_TOKEN).build()
     app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("chatid", chatid_cmd))
     async def chatid_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text(f"Chat ID: {update.effective_chat.id}")
 app.add_handler(CommandHandler("chatid", chatid_cmd))
